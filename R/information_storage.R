@@ -1,3 +1,11 @@
+#' store_info
+#'
+#' Store a named value in a storage file. The storage file is created if it does not exist.
+#'
+#' @param name Character or number. Name of value.
+#' @param value Character or number. Value
+#' @param path Character. Path to storage file.
+#'
 #' @export
 store_info <- function(name, value, path) {
   create_storage_if_not_exists(path)
@@ -7,26 +15,33 @@ store_info <- function(name, value, path) {
   } else {
     storage <- rbind(storage, data.frame(name, value))
   }
-  write.csv(storage, file = path, row.names = F)
+  utils::write.csv(storage, file = path, row.names = F)
 }
 
+#' read_info
+#' 
+#' Read info from the storage file.
+#'
+#' @param name Character or number. Name of value.
+#' @param path Character. Path to storage file.
+#'
+#' @return Character.
+#' 
 #' @export
 read_info <- function(name, path) {
   storage <- read_storage(path)
   return(storage$value[storage$name == name])
 }
 
-read_storage <- function(path) {
-  read.csv(path, stringsAsFactors = F)
-}
-
-# file system interaction
+##### file system interaction ####
 create_storage <- function(path) {
-  write.csv(
+  utils::write.csv(
     data.frame(name = character(), value = character(), stringsAsFactors = F), 
     file = path,
     row.names = F
   )
+  message(paste0("Created a new storage file at: ", path))
 }
 check_if_storage_exists <- function(path) file.exists(path)
 create_storage_if_not_exists <- function(path) if (!check_if_storage_exists(path)) create_storage(path)
+read_storage <- function(path) utils::read.csv(path, stringsAsFactors = F)
