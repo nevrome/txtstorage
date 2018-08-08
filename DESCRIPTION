@@ -1,4 +1,4 @@
-Package: storage
+Package: txtstorage
 Title: A very simple string and number storage system
 Version: 0.0.1
 Authors@R: person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre"))
