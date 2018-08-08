@@ -1,4 +1,4 @@
-#' store_info
+#' store
 #'
 #' Store a named value in a storage file. The storage file is created if it does not exist.
 #'
@@ -7,7 +7,7 @@
 #' @param path Character. Path to storage file.
 #'
 #' @export
-store_info <- function(name, value, path) {
+store <- function(name, value, path) {
   create_storage_if_not_exists(path)
   storage <- read_storage(path)
   if (any(storage$name == name)) { 
@@ -18,7 +18,7 @@ store_info <- function(name, value, path) {
   utils::write.csv(storage, file = path, row.names = F)
 }
 
-#' read_info
+#' read
 #' 
 #' Read info from the storage file.
 #'
@@ -28,7 +28,7 @@ store_info <- function(name, value, path) {
 #' @return Character.
 #' 
 #' @export
-read_info <- function(name, path) {
+read <- function(name, path) {
   storage <- read_storage(path)
   return(storage$value[storage$name == name])
 }
