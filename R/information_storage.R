@@ -7,7 +7,7 @@ store_info <- function(name, value, path) {
   } else {
     storage <- rbind(storage, data.frame(name, value))
   }
-  write.csv(storage, file = path)
+  write.csv(storage, file = path, row.names = F)
 }
 
 #' @export
@@ -24,7 +24,8 @@ read_storage <- function(path) {
 create_storage <- function(path) {
   write.csv(
     data.frame(name = character(), value = character(), stringsAsFactors = F), 
-    file = path
+    file = path,
+    row.names = F
   )
 }
 check_if_storage_exists <- function(path) file.exists(path)
